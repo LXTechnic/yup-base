@@ -1,2 +1,2 @@
-# yup-base
+# yup-tool
 yup sample repos.
