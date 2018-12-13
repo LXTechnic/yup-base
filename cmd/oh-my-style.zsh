@@ -1,1 +1,3 @@
-echo 'oh my style'
+oh-my-style() {
+    echo 'oh my style'
+}
