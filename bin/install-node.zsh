@@ -11,4 +11,4 @@ sudo chown worker:worker -R /tmp/${name}
 sudo su - worker -c "mkdir ~/local;cp -rf /tmp/${name}/* ~/local/"
 
 echo > ~/.npmrc
-npm config set registry https://registry.npm.taobao.org
+npm config set registry https://registry.npm.taobao.org
