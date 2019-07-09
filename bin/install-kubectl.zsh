@@ -1,8 +1,11 @@
 #!/usr/bin/env zsh
 
-local name=v1.13.8
+local name=1.13.8
+if [[ $1 ]] {
+  name=$1
+}
 
-wget -c https://storage.googleapis.com/kubernetes-release/release/${name}/bin/linux/amd64/kubectl -O /tmp/kubectl
+wget -c https://storage.googleapis.com/kubernetes-release/release/v${name}/bin/linux/amd64/kubectl -O /tmp/kubectl
 
 touch-local
 
