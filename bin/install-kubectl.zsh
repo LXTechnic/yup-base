@@ -13,4 +13,6 @@ rm -f ~/local/bin/kubectl
 mv /tmp/kubectl ~/local/bin
 chmod +x ~/local/bin/kubectl
 
-echo "source <(kubectl completion zsh)" >> ~/.zshrc
+if [[ $(file.include ~/.zshrc 'kubectl completion zsh') == 'no' ]] {
+  echo "source <(kubectl completion zsh)" >> ~/.zshrc
+}
