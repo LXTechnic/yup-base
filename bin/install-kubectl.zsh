@@ -6,5 +6,6 @@ wget -c https://storage.googleapis.com/kubernetes-release/release/${name}/bin/li
 
 touch-local
 
+rm -f ~/local/bin/kubectl
 mv /tmp/kubectl ~/local/bin
 chmod +x ~/local/bin/kubectl
