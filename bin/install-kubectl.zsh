@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+source $YHOME/yup.zsh
+
 local name=1.13.8
 if [[ $1 ]] {
   name=$1
