@@ -10,7 +10,7 @@ if [[ $1 ]] {
 
 wget -c https://storage.googleapis.com/kubernetes-release/release/v${name}/bin/linux/amd64/kubectl -O /tmp/kubectl
 
-touch-local
+touch.local
 
 rm -f ~/local/bin/kubectl
 mv /tmp/kubectl ~/local/bin
