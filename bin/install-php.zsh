@@ -20,7 +20,7 @@ export php_name="php-$1"
 useradd -m worker
 
 # 环境
-sudo apt install -y python-dev python-docutils libpcre++0v5 libpcre3 libpcre3-dev libpcre++-dev git libmhash2 libmcrypt4 libxml2-dev libpng-dev libpng++-dev libmcrypt-dev libmhash-dev alien libcurl4-openssl-dev libssl-dev libssl-ocaml-dev libltdl-dev libltdl7 libblkid-dev libtool uuid-dev uuid libevent-2.1-6 libevent-dev autoconf libbz2-dev qt4-qtconfig autoconf2.13 re2c libxml2 xsltproc docbook-xsl libleveldb-dev libboost-all-dev gperf automake gcc bison flex make curl libsqlite3-dev libmysqlclient-dev mercurial libyaml-dev libgmp-dev libmemcached-dev pkg-config libpq-dev
+sudo apt install -y python-dev python-docutils libpcre++0v5 libpcre3 libpcre3-dev libpcre++-dev git libmhash2 libmcrypt4 libxml2-dev libpng-dev libpng++-dev libmcrypt-dev libmhash-dev alien libcurl4-openssl-dev libssl-dev libssl-ocaml-dev libltdl-dev libltdl7 libblkid-dev libtool uuid-dev uuid libevent-2.1-6 libevent-dev autoconf libbz2-dev qt4-qtconfig autoconf2.13 re2c libxml2 xsltproc docbook-xsl libleveldb-dev libboost-all-dev gperf automake gcc bison flex make curl libsqlite3-dev libmysqlclient-dev mercurial libyaml-dev libgmp-dev libmemcached-dev pkg-config libpq-dev libzip-dev
 
 #postgresql postgresql-contrib postgresql-server-dev-9.5
 
