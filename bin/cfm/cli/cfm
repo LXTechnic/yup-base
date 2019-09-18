@@ -1,0 +1,128 @@
+#!/home/worker/local/bin/php
+<?php
+require __DIR__ . '/../init.php';
+const SPATH = __DIR__;
+
+// 帮助
+\Com::$glob['help'] = [
+    'Usage:',
+    'cfm list <file>',
+    'cfm show <file> <name>',
+    'cfm enable <file> <name>[ <name>..]',
+    'cfm disable <file> <comment_tag> <name>[ <name>..]',
+    'cfm set <file> <name>=<value>[ <name>=<value>..]',
+    'cfm append <file> <comment_tag> <name>=<value>[ <name>=<value>..]',
+    'cfm backup <file>',
+    '',
+    'For help:',
+    'cfm --help',
+];
+
+try {
+    $args   = new \Terminal\Arguments($argv);
+    $result = main($args);
+} catch (\Exception $exc) {
+    if ($exc->getCode() == 5001) {
+        $result = \Com::$glob['help'];
+    } else {
+        $result = 'Error: ' . $exc->getMessage();
+    }
+}
+
+function main(\Terminal\Arguments $args) {
+    // 判断是不是help
+    if (isset($args->option['help'])) {
+        return \Com::$glob['help'];
+    }
+
+    if (!isset($args->master[1]) || !isset($args->master[2])) {
+        return \Com::$glob['help'];
+    }
+
+    $file = $args->master[2];
+    $conf = new \Terminal\Conf($file);
+    $conf->parse();
+    switch ($args->master[1]) {
+        case 'list':
+            foreach ($conf->index as $cursor) {
+                echo '[', $conf->parsed[$cursor][0], '] = ', $conf->parsed[$cursor][1],
+                    $conf->parsed[$cursor][2] ? ' (*comment*)' : '',
+                    "\n";
+            }
+            $result = "\ndone.";
+            break;
+
+        case 'show':
+            for ($i = 3; $i < count($args->master); $i++) {
+                $name   = $args->master[$i];
+                if (isset($conf->index[$name])) {
+                    $cursor = $conf->index[$name];
+                    echo "[$name] = ", $conf->parsed[$cursor][1],
+                        $conf->parsed[$cursor][2] ? ' (*comment*)' : '',
+                        "\n";
+                } else {
+                    echo "[$name] is not exists\n";
+                }
+            }
+            $result = "\ndone.";
+            break;
+
+        case 'enable':
+            for ($i = 3; $i < count($args->master); $i++) {
+                $conf->enable($args->master[$i]);
+            }
+            $conf->save();
+            $result = "enabled.";
+            break;
+
+        case 'disable':
+            if (!isset($args->master[3])) {
+                return \Com::$glob['help'];
+            }
+            $tag = $args->master[3];
+            for ($i = 4; $i < count($args->master); $i++) {
+                $conf->disable($args->master[$i], $tag);
+            }
+            $conf->save();
+            $result = "disabled.";
+            break;
+
+        case 'set':
+            for ($i = 3; $i < count($args->master); $i++) {
+                $change = explode('=', $args->master[$i]);
+                $conf->set($change[0], $change[1]);
+            }
+            $conf->save();
+            $result = "set success.";
+            break;
+
+        case 'append':
+            if (!isset($args->master[3])) {
+                return \Com::$glob['help'];
+            }
+            $tag = $args->master[3];
+            for ($i = 4; $i < count($args->master); $i++) {
+                $change = explode('=', $args->master[$i]);
+                $conf->append($change[0], $change[1], $tag);
+            }
+            $conf->save();
+            $result = "append success.";
+            break;
+
+        case 'backup':
+            $backup = $conf->backup(true);
+            $result = "Backup done. [$backup]";
+            break;
+
+        default:
+            $result = 'action error.';
+            break;
+    }
+
+    return $result;
+}
+
+\Com::write($result);
+
+die("\n");
+
